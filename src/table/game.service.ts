@@ -7,14 +7,14 @@ export class GameService {
     games: game[] = []
 
     findAll() {
-        return 'Buscar todas os jogos';
+        return this.games
     }
 
     create(createGameDto: CreateGameDto) {
         const game: game = {id: 'random_id', ...createGameDto};
 
         this.games.push(game);
-        
+
         return game
     }
 }
