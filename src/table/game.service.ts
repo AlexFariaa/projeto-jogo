@@ -1,13 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { CreateGameDto } from "./dto/create-game.dto";
+import { game } from "./entities/game.entities";
 
 @Injectable()
 export class GameService {
+    games: game[] = []
+
     findAll() {
         return 'Buscar todas os jogos';
     }
 
     create(createGameDto: CreateGameDto) {
-        return 'Criar um novo jogo' + JSON.stringify(createGameDto)
+        const game: game = {id: 'random_id', ...createGameDto};
+
+        this.games.push(game);
+        
+        return game
     }
 }
