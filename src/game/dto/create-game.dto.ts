@@ -5,7 +5,7 @@ export class CreateGameDto {
   @IsNumber()
   @IsPositive()
   @ApiProperty({
-    description: 'O número do usuario',
+    description: 'O número do jogo',
     example: 1,
   })
   number: number;
