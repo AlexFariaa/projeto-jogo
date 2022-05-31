@@ -10,10 +10,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model game {
-  id String @id @default(uuid())
-  number Int @unique
+model Game {
+  id                 String @id @default(uuid())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  title              String @unique
+  coverImageUrl      String
+  description        String
+  Year               Int
+  imdbScrore         Float
+  trailerYouTubeUrl  String
+  gameplayYouTubeUrl String
+
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("game")
+}
+
+model Users {
+  id String @id @default(uuid())
+
+  name String
+  email String
+  password String
+  cpf Int @unique
+  isAdmin String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Profiles {
+  id String @id @default(uuid())
+
+  title String
+  imageUrl String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("profiles")
+}
+
+model Genders {
+  id String @id @default(uuid())
+
+  name String
+  
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("genders")
 }
