@@ -12,15 +12,15 @@ export class GendersService {
     return `This action returns all genders`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} gender`;
   }
 
-  update(id: number, updateGenderDto: UpdateGenderDto) {
+  update(id: string, updateGenderDto: UpdateGenderDto) {
     return `This action updates a #${id} gender`;
   }
 
-  remove(id: number) {
+  delete(id: string) {
     return `This action removes a #${id} gender`;
   }
 }

@@ -15,6 +15,9 @@ async function bootstrap() {
   .setDescription('Aplicação para gestão de jogos')
   .setVersion('1.0.0')
   .addTag('status')
+  .addTag('games')
+  .addTag('users')
+  .addTag('profiles')
   .build();
 
   const document = SwaggerModule.createDocument(app, config);
