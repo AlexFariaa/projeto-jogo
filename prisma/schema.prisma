@@ -12,7 +12,7 @@ datasource db {
 
 model Game {
   id                 String @id @default(uuid())
-
+  number             Int
   title              String @unique
   coverImageUrl      String
   description        String
@@ -31,11 +31,11 @@ model Game {
 model Users {
   id String @id @default(uuid())
 
-  name String
-  email String
+  name     String
+  email    String
   password String
-  cpf Int @unique
-  isAdmin String
+  cpf      Int    @unique
+  isAdmin  String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -46,7 +46,7 @@ model Users {
 model Profiles {
   id String @id @default(uuid())
 
-  title String
+  title    String
   imageUrl String
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -59,7 +59,7 @@ model Genders {
   id String @id @default(uuid())
 
   name String
-  
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
