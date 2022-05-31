@@ -6,17 +6,17 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
-import { game } from './entities/game.entities';
+import { Game } from './entities/game.entities';
 
 @Injectable()
 export class GameService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Promise<game[]> {
+  findAll(): Promise<Game[]> {
     return this.prisma.game.findMany();
   }
 
-  async findById(id: string): Promise<game> {
+  async findById(id: string): Promise<Game> {
     const record = await this.prisma.game.findUnique({ where: { id } });
     if (!record) {
       throw new NotFoundException(`Registro com o ID '${id}' não encontrado`);
@@ -24,20 +24,20 @@ export class GameService {
     return record;
   }
 
-  async findOne(id: string): Promise<game> {
+  async findOne(id: string): Promise<Game> {
     return this.findById(id);
   }
 
-  create(dto: CreateGameDto): Promise<game> {
-    const data: game = { ...dto };
+  create(dto: CreateGameDto): Promise<Game> {
+    const data: Game = { ...dto };
 
     return this.prisma.game.create({ data }).catch(this.handleError);
   }
 
-  async update(id: string, dto: UpdateGameDto): Promise<game> {
+  async update(id: string, dto: UpdateGameDto): Promise<Game> {
     await this.findById(id);
 
-    const data: Partial<game> = { ...dto };
+    const data: Partial<Game> = { ...dto };
 
     return this.prisma.game
       .update({

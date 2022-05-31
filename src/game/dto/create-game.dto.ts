@@ -9,4 +9,12 @@ export class CreateGameDto {
     example: 1,
   })
   number: number;
+
+  title: string;
+  coverImageUrl: string;
+  description: string;
+  Year: number;
+  imdbScrore: number;
+  trailerYouTubeUrl: string;
+  gameplayYouTubeUrl: string;
 }

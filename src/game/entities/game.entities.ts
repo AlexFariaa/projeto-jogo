@@ -1,11 +1,11 @@
-export class game {
+export class Game {
     id?: string;
     number: number;
-    /*title: string;
+    title: string;
     coverImageUrl: string;
     description: string;
-    Year: Number;
-    imdbScrore: Number;
+    Year: number;
+    imdbScrore: number;
     trailerYouTubeUrl: string;
-    gameplayYoutubeUrl: string;*/
+    gameplayYouTubeUrl: string;
 }
