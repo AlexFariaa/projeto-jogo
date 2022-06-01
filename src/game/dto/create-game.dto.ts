@@ -5,11 +5,21 @@ export class CreateGameDto {
   @IsNumber()
   @IsPositive()
   @ApiProperty({
-    description: 'O número do jogo',
-    example: 1,
+    description: 'Cria um novo jogo',
+    example: 
+      {
+        "number": 1, 
+        "title": "Teste",
+        "coverImageUrl": "Teste.com",
+        "description": "É um teste",
+        "Year": 2022,
+        "imdbScrore": 5,
+        "trailerYouTubeUrl": "Trailer teste",
+        "gameplayYouTubeUrl": "Teste testando"
+      }
   })
-  number: number;
 
+  number: number;
   title: string;
   coverImageUrl: string;
   description: string;
