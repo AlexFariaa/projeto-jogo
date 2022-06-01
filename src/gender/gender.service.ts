@@ -6,7 +6,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateGenderDto } from './dto/create-gender.dto';
 import { UpdateGenderDto } from './dto/update-gender.dto';
-import { Gender } from './entities/gender.entities';
+import { Gender } from './entities/gender.entity';
 
 @Injectable()
 export class GenderService {

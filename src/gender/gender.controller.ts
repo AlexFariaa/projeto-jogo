@@ -1,52 +1,51 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { GenderService } from './gender.service';
 import { CreateGenderDto } from './dto/create-gender.dto';
 import { UpdateGenderDto } from './dto/update-gender.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('genders')
-@Controller('genders')
+@ApiTags('Gender')
+@Controller('gender')
 export class GenderController {
-  constructor(private readonly gendersService: GenderService) {}
+  constructor(private readonly genderService: GenderService) {}
 
   @Post()
   @ApiOperation({
-    summary: "Criar um novo genero"
+    summary: 'Cria um novo genero'
   })
   create(@Body() createGenderDto: CreateGenderDto) {
-    return this.gendersService.create(createGenderDto);
+    return this.genderService.create(createGenderDto);
   }
 
   @Get()
   @ApiOperation({
-    summary: "Ver todos os generos"
+    summary: 'Procura todos os generos'
   })
   findAll() {
-    return this.gendersService.findAll();
+    return this.genderService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: "Pesquisar os generos pelo ID"
+    summary: 'Procura genero por ID'
   })
   findOne(@Param('id') id: string) {
-    return this.gendersService.findOne(id);
+    return this.genderService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: "Atualizar o genero pelo ID"
+    summary: 'Atualiza o genero por ID'
   })
   update(@Param('id') id: string, @Body() updateGenderDto: UpdateGenderDto) {
-    return this.gendersService.update(id, updateGenderDto);
+    return this.genderService.update(id, updateGenderDto);
   }
 
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: "Deletar o genero pelo ID"
+    summary: 'Deleta um genero por ID'
   })
   delete(@Param('id') id: string) {
-    return this.gendersService.delete(id);
+    return this.genderService.delete(id);
   }
 }

@@ -27,7 +27,7 @@ model Game {
   @@map("game")
 }
 
-model Users {
+model User {
   id String @id @default(uuid())
 
   name     String
@@ -39,10 +39,10 @@ model Users {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("users")
+  @@map("user")
 }
 
-model Profiles {
+model Profile {
   id String @id @default(uuid())
 
   title    String
@@ -51,10 +51,10 @@ model Profiles {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("profiles")
+  @@map("profile")
 }
 
-model Genders {
+model Gender {
   id String @id @default(uuid())
 
   name String
@@ -62,5 +62,5 @@ model Genders {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("genders")
+  @@map("gender")
 }
