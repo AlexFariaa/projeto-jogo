@@ -12,8 +12,7 @@ datasource db {
 
 model Game {
   id                 String @id @default(uuid())
-  number             Int
-  title              String @unique //tratar erro, perguntar para professor
+  title              String @unique 
   coverImageUrl      String
   description        String
   Year               Int

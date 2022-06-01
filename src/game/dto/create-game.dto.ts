@@ -7,8 +7,7 @@ export class CreateGameDto {
   @ApiProperty({
     description: 'Cria um novo jogo',
     example: 
-      {
-        "number": 1, 
+      { 
         "title": "Teste",
         "coverImageUrl": "Teste.com",
         "description": "É um teste",
@@ -19,7 +18,6 @@ export class CreateGameDto {
       }
   })
 
-  number: number;
   title: string;
   coverImageUrl: string;
   description: string;
