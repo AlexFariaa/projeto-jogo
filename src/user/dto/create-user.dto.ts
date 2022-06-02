@@ -18,5 +18,5 @@ export class CreateUserDto {
     email: string;
     password: string;
     cpf: number;
-    isAdmin: boolean
+    isAdmin: string;
 }
