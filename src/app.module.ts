@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { GameModule } from './game/game.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
-import { ProfilesModule } from './profiles/profiles.module';
 import { GenderModule } from './gender/gender.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
-  imports: [GameModule, PrismaModule, UsersModule, ProfilesModule, GenderModule],
+  imports: [GameModule, PrismaModule, UsersModule, GenderModule, ProfileModule],
   controllers: [AppController],
   providers: [AppService],
 })
