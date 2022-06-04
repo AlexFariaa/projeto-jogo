@@ -1,23 +1,50 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsPositive } from "class-validator";
+import { IsNumber, IsPositive, IsString, Matches, MinLength } from "class-validator";
 
 export class CreateUserDto {
+    @IsString()
+    @ApiProperty({
+        description: 'Nome do usuario',
+        example: "Alex Faria" 
+    })
+    name: string;
+
+    @IsString()
+    @ApiProperty({
+        description: 'Email do usuario',
+        example: "alexcaras1@hotmail.com"
+    })
+    email: string;
+
+    @IsString()
+    @MinLength(6)
+    @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'Senha muito fraca',
+  })
+    @ApiProperty({
+        description: "Senha do usuario",
+        example: "Abcd@1234"
+    })
+    password: string;
+    
+    @ApiProperty({
+        description: "Confirmação de senha deve ser igual",
+        example: "Abcd@1234"
+    })
+    confirmPassword: string;
+
     @IsNumber()
     @IsPositive()
     @ApiProperty({
-        description: 'Cria um novo usuario',
-        example: {
-            "name": "New User",
-            "email": "email@teste.com",
-            "password": "123",
-            "cpf": 99900099900,
-            "isAdmin": true
-        },
+        description: "CPF para cadastro do usario",
+        example: "99999999931"
     })
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
     cpf: number;
+
+    @IsString()
+    @ApiProperty({
+        description: "Validação de admin",
+        example: "teste"
+    })
     isAdmin: string;
 }
