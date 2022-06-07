@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsPositive, IsString, Matches, MinLength } from "class-validator";
+import { IsNumber, IsPositive, IsString, IsUUID, isUUID, Matches, MinLength } from "class-validator";
 
 export class CreateUserDto {
     @IsString()
