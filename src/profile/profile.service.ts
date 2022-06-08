@@ -36,11 +36,10 @@ export class ProfileService {
           id: dto.userId
         }
       },
+      ...dto,
       games: {connect: dto.games.map((gameId) => ({
         id: gameId
       }))},
-
-      ...dto
     }
     
 
@@ -56,7 +55,10 @@ export class ProfileService {
           id: dto.userId
         }
       },
-      ...dto
+      ...dto,
+      games: {connect: dto.games.map((gameId) => ({
+        id: gameId
+      }))},
     }
 
     return this.prisma.profile
