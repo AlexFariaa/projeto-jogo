@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
@@ -30,13 +29,17 @@ export class ProfileService {
     return this.findById(id);
   }
 
-  create(dto: CreateProfileDto): Promise<Profile> {
+  create(dto: CreateProfileDto): Promise<Profile>{
     const data: Prisma.ProfileCreateInput = {
       user: {
         connect: {
           id: dto.userId
         }
       },
+      games: {connect: dto.games.map((gameId) => ({
+        id: gameId
+      }))},
+
       ...dto
     }
     
