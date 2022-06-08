@@ -3,6 +3,7 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
@@ -28,8 +29,19 @@ export class GameService {
     return this.findById(id);
   }
 
-  create(dto: CreateGameDto): Promise<Game> {
-    const data: Game = { ...dto };
+  async create(dto: CreateGameDto): Promise<Game> {
+    const genderId = await this.prisma.gender.findFirst({
+      where: { name: dto.genders },
+    });
+    const data: Prisma.GameCreateInput = {
+      ...dto,
+      genders: {
+        connect: {
+          id: genderId.id
+        },
+      },
+      
+    };
 
     return this.prisma.game.create({ data }).catch(this.handleError);
   }
@@ -37,7 +49,17 @@ export class GameService {
   async update(id: string, dto: UpdateGameDto): Promise<Game> {
     await this.findById(id);
 
-    const data: Partial<Game> = { ...dto };
+    const genderId = await this.prisma.gender.findFirst({
+      where: { name: dto.genders },
+    });
+
+    const data: Partial<Prisma.GameCreateInput> = { ...dto,
+    genders: {
+      connect: {
+        id: genderId.id
+      }
+    }
+    };
 
     return this.prisma.game
       .update({
