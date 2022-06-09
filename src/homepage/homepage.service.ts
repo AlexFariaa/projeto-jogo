@@ -7,23 +7,24 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class HomepageService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findByGender(): Promise<Game[]>{
-    return this.prisma.game.findMany(
-      {
-        where:{genders: {
-          some: {
-            name: 'Terror'
-          }
-        }}
+  async findByGender(id: string) { 
+    const favorites = await this.prisma.profile.findUnique({
+      where: {
+        id
+      },
+      select: {
+        games: true
       }
-    );
-  }
+    })
 
-  findOne(id: string) {
-    return `This action returns a #${id} homepage`;
-  }
+    const genres = await this.prisma.gender.findMany({
+      select: {
+        id: true,
+        name: true,
+        games: true,
+      }
+    })
 
-  findAll(){
-    return `teste`
+    return [{favorites}, {genres}]
   }
 }

@@ -26,7 +26,7 @@ export class GameService {
   }
 
   async findOne(id: string): Promise<Game> {
-    return this.findById(id);
+    return await this.findById(id);
   }
 
   create(dto: CreateGameDto){

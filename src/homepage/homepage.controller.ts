@@ -7,20 +7,12 @@ import { HomepageService } from './homepage.service';
 export class HomepageController {
   constructor(private readonly homepageService: HomepageService) {}
 
-  @Get()
   @ApiOperation({
-    summary: "Mostra todos os jogos"
-  })
-  findAll() {
-    return this.homepageService.findAll();
-  }
-
-  @ApiOperation({
-    summary: "Jogos por genero"
+    summary: "Homepage"
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.homepageService.findOne(id);
+  findByGender(@Param('id') id: string) {
+    return this.homepageService.findByGender(id);
   }
 
 }
