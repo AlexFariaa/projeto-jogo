@@ -30,7 +30,7 @@ export class GameController {
   @ApiOperation({
     summary: 'Criar um novo jogo',
   })
-  create(@Body() dto: CreateGameDto): Promise<Game> {
+  create(@Body() dto: CreateGameDto){
     return this.gameService.create(dto);
   }
 

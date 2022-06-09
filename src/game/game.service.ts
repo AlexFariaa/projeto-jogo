@@ -29,16 +29,26 @@ export class GameService {
     return this.findById(id);
   }
 
-  create(dto: CreateGameDto): Promise<Game> {
+  create(dto: CreateGameDto){
     const data: Prisma.GameCreateInput = {
       ...dto,
       genders:{connect: dto.genders.map((genderId)=> ({
         id: genderId
       }))}
       }
-    
-
-    return this.prisma.game.create({ data}).catch(this.handleError);
+  
+    return this.prisma.game.create({data,
+      select: {
+        title: true,
+        genders: {
+          select: {
+            name: true,
+            }
+          }
+        }
+      }
+      
+      ).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateGameDto): Promise<Game> {
