@@ -54,10 +54,10 @@ export class CreateGameDto {
   })
   gameplayYouTubeUrl: string;
 
-  @IsString()
+  @IsUUID(undefined, {each: true})
   @ApiProperty({
-    description: "Nome do genero de jogos",
-    example: 'Ação'
+    description: "ID do genero de jogos",
+    example: ['4e80c9ef-1827-4ab2-a2a9-c00d09f9f1f6']
   })
-  genders: string;
+  genders: string[];
 }

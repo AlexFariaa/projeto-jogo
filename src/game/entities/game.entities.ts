@@ -1,3 +1,4 @@
+import { Gender, Profile } from "@prisma/client";
 
 export class Game {
     id?: string;
@@ -8,4 +9,6 @@ export class Game {
     imdbScrore: number;
     trailerYouTubeUrl: string;
     gameplayYouTubeUrl: string;
+    genders?: Gender;
+    profiles?: Profile;
 }

@@ -29,36 +29,25 @@ export class GameService {
     return this.findById(id);
   }
 
-  async create(dto: CreateGameDto): Promise<Game> {
-    const genderId = await this.prisma.gender.findFirst({
-      where: { name: dto.genders },
-    });
+  create(dto: CreateGameDto): Promise<Game> {
     const data: Prisma.GameCreateInput = {
       ...dto,
-      genders: {
-        connect: {
-          id: genderId.id
-        },
-      },
-      
-    };
+      genders:{connect: dto.genders.map((genderId)=> ({
+        id: genderId
+      }))}
+      }
+    
 
-    return this.prisma.game.create({ data }).catch(this.handleError);
+    return this.prisma.game.create({ data}).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateGameDto): Promise<Game> {
     await this.findById(id);
 
-    const genderId = await this.prisma.gender.findFirst({
-      where: { name: dto.genders },
-    });
-
     const data: Partial<Prisma.GameCreateInput> = { ...dto,
-    genders: {
-      connect: {
-        id: genderId.id
-      }
-    }
+    genders: {connect: dto.genders.map((genderId) => ({
+      id: genderId
+    }))}
     };
 
     return this.prisma.game

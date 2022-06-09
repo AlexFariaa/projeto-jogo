@@ -29,21 +29,23 @@ export class ProfileService {
     return this.findById(id);
   }
 
-  create(dto: CreateProfileDto): Promise<Profile>{
+  async create(dto: CreateProfileDto): Promise<Profile> {
     const data: Prisma.ProfileCreateInput = {
+      title: dto.title,
+      imageUrl: dto.imageUrl,
       user: {
         connect: {
-          id: dto.userId
-        }
+          id: dto.userId,
+        },
       },
-      ...dto,
-      games: {connect: dto.games.map((gameId) => ({
-        id: gameId
-      }))},
-    }
-    
+      games: {
+        connect: dto.games.map((gameId) => ({
+          id: gameId,
+        })),
+      },
+    };
 
-    return this.prisma.profile.create({ data }).catch(this.handleError);
+    return await this.prisma.profile.create({ data }).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateProfileDto): Promise<Profile> {
@@ -52,14 +54,16 @@ export class ProfileService {
     const data: Partial<Prisma.ProfileCreateInput> = {
       user: {
         connect: {
-          id: dto.userId
-        }
+          id: dto.userId,
+        },
       },
       ...dto,
-      games: {connect: dto.games.map((gameId) => ({
-        id: gameId
-      }))},
-    }
+      games: {
+        connect: dto.games.map((gameId) => ({
+          id: gameId,
+        })),
+      },
+    };
 
     return this.prisma.profile
       .update({
