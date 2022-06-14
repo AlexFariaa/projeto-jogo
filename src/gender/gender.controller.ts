@@ -4,7 +4,7 @@ import { CreateGenderDto } from './dto/create-gender.dto';
 import { UpdateGenderDto } from './dto/update-gender.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from '@prisma/client';
+import { User } from 'src/user/entities/user.entity';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 
 @ApiTags('genders')
