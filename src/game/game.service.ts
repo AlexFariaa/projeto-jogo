@@ -1,9 +1,11 @@
 import {
   Injectable,
   NotFoundException,
+  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
+import { userInfo } from 'os';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
@@ -29,7 +31,12 @@ export class GameService {
     return await this.findById(id);
   }
 
-  create(dto: CreateGameDto){
+  create(user: User,dto: CreateGameDto){
+
+    if(!user.isAdmin){
+      throw new UnauthorizedException("Usuario não autenticado")
+    }
+
     const data: Prisma.GameCreateInput = {
       ...dto,
       genders:{connect: dto.genders.map((genderId)=> ({
@@ -40,6 +47,7 @@ export class GameService {
     return this.prisma.game.create({data,
       select: {
         title: true,
+        id: true,
         genders: {
           select: {
             name: true,
@@ -51,7 +59,11 @@ export class GameService {
       ).catch(this.handleError);
   }
 
-  async update(id: string, dto: UpdateGameDto): Promise<Game> {
+  async update(user: User, id: string, dto: UpdateGameDto): Promise<Game> {
+    if(!user.isAdmin){
+      throw new UnauthorizedException("Usuario não autenticado")
+    }
+
     await this.findById(id);
 
     const data: Partial<Prisma.GameCreateInput> = { ...dto,
@@ -67,7 +79,11 @@ export class GameService {
       })
       .catch(this.handleError);
   }
-  async delete(id: string) {
+  async delete(user: User, id: string) {
+    if(!user.isAdmin){
+      throw new UnauthorizedException("Usuario não autenticado")
+    }
+
     await this.findById(id);
     await this.prisma.game.delete({ where: { id } });
   }

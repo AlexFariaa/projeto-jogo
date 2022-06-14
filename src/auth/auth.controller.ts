@@ -1,9 +1,11 @@
+import { User } from '.prisma/client';
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { LoginDto } from './dto/login.dto';
+import { LoggedUser } from './logged-user.decorator';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -25,7 +27,7 @@ export class AuthController {
     summary: 'Retorna usuario autenticado no momento'
   })
   @ApiBearerAuth()
-  profile(){
-    return {message: 'autenticação feita'}
+  profile(@LoggedUser() user: User){
+    return user
   }
 }

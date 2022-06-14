@@ -1,8 +1,10 @@
 import {
   Injectable,
   NotFoundException,
+  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateGenderDto } from './dto/create-gender.dto';
 import { UpdateGenderDto } from './dto/update-gender.dto';
@@ -28,13 +30,19 @@ export class GenderService {
     return this.findById(id);
   }
 
-  create(dto: CreateGenderDto): Promise<Gender> {
+  create(user: User,dto: CreateGenderDto): Promise<Gender> {
+    if(!user.isAdmin){
+      throw new UnauthorizedException("Usuario não autenticado")
+    }
     const data: Gender = { ...dto };
 
     return this.prisma.gender.create({ data }).catch(this.handleError);
   }
 
-  async update(id: string, dto: UpdateGenderDto): Promise<Gender> {
+  async update(user: User,id: string, dto: UpdateGenderDto): Promise<Gender> {
+    if(!user.isAdmin){
+      throw new UnauthorizedException("Usuario não autenticado")
+    }
     await this.findById(id);
 
     const data: Partial<Gender> = { ...dto };
@@ -46,7 +54,11 @@ export class GenderService {
       })
       .catch(this.handleError);
   }
-  async delete(id: string) {
+  async delete(user: User, id: string) {
+    if(!user.isAdmin){
+      throw new UnauthorizedException("Usuario não autenticado")
+    }
+    
     await this.findById(id);
     await this.prisma.gender.delete({ where: { id } });
   }

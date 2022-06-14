@@ -4,6 +4,8 @@ import { CreateGenderDto } from './dto/create-gender.dto';
 import { UpdateGenderDto } from './dto/update-gender.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '@prisma/client';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
 
 @ApiTags('genders')
 @UseGuards(AuthGuard())
@@ -16,8 +18,8 @@ export class GenderController {
   @ApiOperation({
     summary: 'Cria um novo genero'
   })
-  create(@Body() createGenderDto: CreateGenderDto) {
-    return this.genderService.create(createGenderDto);
+  create(@LoggedUser() user: User, @Body() createGenderDto: CreateGenderDto) {
+    return this.genderService.create(user, createGenderDto);
   }
 
   @Get()
@@ -40,8 +42,8 @@ export class GenderController {
   @ApiOperation({
     summary: 'Atualiza o genero por ID'
   })
-  update(@Param('id') id: string, @Body() updateGenderDto: UpdateGenderDto) {
-    return this.genderService.update(id, updateGenderDto);
+  update(@LoggedUser() user: User, @Param('id') id: string, @Body() updateGenderDto: UpdateGenderDto) {
+    return this.genderService.update(user, id, updateGenderDto);
   }
 
   @Delete(':id')
@@ -49,7 +51,7 @@ export class GenderController {
   @ApiOperation({
     summary: 'Deleta um genero por ID'
   })
-  delete(@Param('id') id: string) {
-    return this.genderService.delete(id);
+  delete(@LoggedUser() user: User, @Param('id') id: string) {
+    return this.genderService.delete(user, id);
   }
 }
