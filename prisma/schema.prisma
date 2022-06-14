@@ -34,10 +34,10 @@ model User {
   id String @id @default(uuid())
 
   name     String
-  email    String 
+  email    String @unique
   password String
-  cpf      Int    @unique
-  isAdmin  String
+  cpf      Int    
+  isAdmin  Boolean //falar sobre boolean
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

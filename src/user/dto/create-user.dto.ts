@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsPositive, IsString, IsUUID, isUUID, Matches, MinLength } from "class-validator";
+import { IsBoolean, IsNumber, IsPositive, IsString, IsUUID, isUUID, Matches, MinLength } from "class-validator";
 
 export class CreateUserDto {
     @IsString()
@@ -41,10 +41,10 @@ export class CreateUserDto {
     })
     cpf: number;
 
-    @IsString()
+    @IsBoolean()
     @ApiProperty({
         description: "Validação de admin",
-        example: "teste"
+        example: "true"
     })
-    isAdmin: string;
+    isAdmin: boolean;
 }
